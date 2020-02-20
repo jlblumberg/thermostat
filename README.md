@@ -32,4 +32,7 @@ As a homeowner,
 so that I can easily return to baseline, 
 I'd like a function to reset the temperature to 20.
 
+As a homeowner,
+So that I can gauge energy usage,
+I'd like a function to tell me current usage levels (high/med/low).
 ```
