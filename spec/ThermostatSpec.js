@@ -56,7 +56,33 @@ describe('Theromstat', function(){
   it('has a reset function to set the temp to 20', function(){
     thermostat.increaseTemp()
     thermostat.resetTemp()
-    expect(thermostat.temperature).toEqual(20)
+    expect(thermostat.getTemperature()).toEqual(20)
+  });
+
+  describe('displaying usage levels', function() {
+    describe('when the temp is below 18 degrees', function() {
+      it('it is considered low-usage', function() {
+        for (var i = 0; i < 3; i++) {
+          thermostat.decreaseTemp()
+        }
+        expect(thermostat.energyUsage()).toEqual('low-usage');
+      });
+    });
+
+    describe('when the temperature is between 18 and 25 degrees', function() {
+      it('is considered medium-usage', function() {
+        expect(thermostat.energyUsage()).toEqual('medium-usage');
+      });
+    });
+    describe('when the temperature is anything else', function(){
+      it('is considered high-usage', function() {
+        thermostat.switchPowerSavingMode()
+        for (var i = 0; i < 6; i++) {
+          thermostat.increaseTemp();
+        }
+        expect(thermostat.energyUsage()).toEqual('high-usage');
+      });
+    });
   });
 
 });
