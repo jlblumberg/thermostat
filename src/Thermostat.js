@@ -17,7 +17,11 @@ Thermostat.prototype.isMinimumTemperature = function() {
 };
 
 Thermostat.prototype.switchPowerSavingMode = function() {
-  this.powerSavingModeOn = !(this.powerSavingModeOn)
+  this.powerSavingModeOn = !(this.powerSavingModeOn);
+  if (this.powerSavingModeOn === true && this.temperature > this.MAX_LIMIT_PSM_ON) {
+    this.temperature = this.MAX_LIMIT_PSM_ON
+  };
+  return this.powerSavingModeOn;
 };
 
 Thermostat.prototype.increaseTemp = function() {

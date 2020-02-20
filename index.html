@@ -7,7 +7,14 @@
   <body>
     <br><br><br>
     <article class="container">
-      <h1>This is your thermostat Blum.0</h1>
+      <h1>This is your Blum.0 thermostat</h1>
+      <section>
+        <h1>Current temperature: <span id="current-temperature"></span></h1>
+          <form id="select-city">
+            <input id="current-city" type="text" placeholder="Enter a city name"></input>
+            <input type="submit"></input>
+          </form>
+      </section>
       <section>
         <h2 id="temperature"></h2>
         <p>
@@ -15,13 +22,71 @@
           <button id="temperature-down">-</button>
           <button id="temperature-reset">reset</button>
           <br><br>
-          power saving mode is <span id="power-saving-status">on</span>
+          <span id="power-saving-status"></span>
           <br><br>
-          <button id="powersaving-on">power saving on</button>
-          <button id="powersaving-off">power saving off</button>
+          <button id="powersaving-mode">switch power saving mode</button>
         </p>
       </section>
     </article>
-    <script src="js/thermostat.js"></script>
+    <script src="src/thermostat.js"></script>
+    <script src="jquery.js"></script>
+    <script>
+      $(document).ready(function(){
+        var thermostat = new Thermostat();
+        updateTemperatureText();
+        updatePowerSavingMode();
+
+        $('#temperature-up').click(function(){
+          thermostat.increaseTemp();
+          updateTemperatureText();
+        });
+
+        $('#temperature-down').click(function(){
+          thermostat.decreaseTemp();
+          updateTemperatureText();
+        });
+
+        $('#temperature-reset').click(function(){
+          thermostat.resetTemp();
+          updateTemperatureText();
+        });
+
+        $('#powersaving-mode').click(function(){
+          thermostat.switchPowerSavingMode();
+          updatePowerSavingMode();
+          updateTemperatureText();
+        });
+
+        $('#select-city').submit(function (event) {
+          event.preventDefault();
+          var city = $('#current-city').val();
+          displayWeather(city);
+        })
+      
+        function updateTemperatureText() {
+          $('#temperature').text('Current setting: ' + thermostat.temperature);
+          $("body").attr('class', thermostat.energyUsage());
+        };
+
+        function updatePowerSavingMode() {
+          var status;
+          if (thermostat.powerSavingModeOn === true) {
+            status = "on"
+          } else {
+            status = "off"
+          };
+          $('#power-saving-status').text("Power saving mode is " + status);
+        };
+
+        function displayWeather(city) {
+          var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
+          var token = '&appid=a3d9eb01d4de82b9b8d0849ef604dbed';
+          var units = '&units=metric';
+          $.get(url + token + units, function (data) {
+            $('#current-temperature').text(data.main.temp);
+          });
+        };
+      });
+    </script>
   </body>
 </html>
