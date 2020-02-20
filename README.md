@@ -27,4 +27,9 @@ I want a powersaving mode which will set maximum temperature to 25 degrees.
 As a homeowner, 
 so that I can turn the heat up on cold days,
 If powersaving mode is off, I want the maximum temperature to be 32 degrees.
+
+As a homeowner, 
+so that I can easily return to baseline, 
+I'd like a function to reset the temperature to 20.
+
 ```

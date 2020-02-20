@@ -32,3 +32,7 @@ Thermostat.prototype.decreaseTemp = function() {
   }
   return this.temperature -= 1
 };
+
+Thermostat.prototype.resetTemp = function() {
+  this.temperature = this.DEFAULT_TEMP
+};
