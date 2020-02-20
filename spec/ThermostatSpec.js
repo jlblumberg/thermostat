@@ -28,7 +28,14 @@ describe('Theromstat', function(){
   });
 
   it('has a power-saving setting which defaults to on', function() {
-    expect(thermostat.isInPowerSavingMode()).toEqual(true);
+    expect(thermostat.powerSavingModeOn).toEqual(true);
+  });
+
+  it('has a switch for toggling powersaving mode', function(){
+    thermostat.switchPowerSavingMode()
+    expect(thermostat.powerSavingModeOn).toBe(false)
+    thermostat.switchPowerSavingMode()
+    expect(thermostat.powerSavingModeOn).toBe(true)
   });
 
   it('has a maximum temp of 25 degrees when in powersaving mode', function() {
@@ -36,6 +43,14 @@ describe('Theromstat', function(){
       thermostat.increaseTemp();
     };
     expect(thermostat.getTemperature()).toEqual(25);
+  });
+
+  it('has a maximum temp of 32 degrees when not in powersaving mode', function() {
+    thermostat.switchPowerSavingMode()
+    for (var i = 0; i < 30; i++){
+      thermostat.increaseTemp();
+    }
+    expect(thermostat.getTemperature()).toEqual(32);
   });
 
 });

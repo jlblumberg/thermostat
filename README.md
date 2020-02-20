@@ -23,4 +23,8 @@ I would like to set a minimum temperature of 10 degrees.
 As a homeowner, 
 so that I can save on bills,
 I want a powersaving mode which will set maximum temperature to 25 degrees.
+
+As a homeowner, 
+so that I can turn the heat up on cold days,
+If powersaving mode is off, I want the maximum temperature to be 32 degrees.
 ```
