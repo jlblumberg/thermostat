@@ -28,65 +28,9 @@
         </p>
       </section>
     </article>
+    <script src="js/jquery.js"></script>
+    <script src="js/jstorage.js"></script>
+    <script src="src/interface.js"></script>
     <script src="src/thermostat.js"></script>
-    <script src="jquery.js"></script>
-    <script>
-      $(document).ready(function(){
-        var thermostat = new Thermostat();
-        updateTemperatureText();
-        updatePowerSavingMode();
-
-        $('#temperature-up').click(function(){
-          thermostat.increaseTemp();
-          updateTemperatureText();
-        });
-
-        $('#temperature-down').click(function(){
-          thermostat.decreaseTemp();
-          updateTemperatureText();
-        });
-
-        $('#temperature-reset').click(function(){
-          thermostat.resetTemp();
-          updateTemperatureText();
-        });
-
-        $('#powersaving-mode').click(function(){
-          thermostat.switchPowerSavingMode();
-          updatePowerSavingMode();
-          updateTemperatureText();
-        });
-
-        $('#select-city').submit(function (event) {
-          event.preventDefault();
-          var city = $('#current-city').val();
-          displayWeather(city);
-        })
-      
-        function updateTemperatureText() {
-          $('#temperature').text('Current setting: ' + thermostat.temperature);
-          $("body").attr('class', thermostat.energyUsage());
-        };
-
-        function updatePowerSavingMode() {
-          var status;
-          if (thermostat.powerSavingModeOn === true) {
-            status = "on"
-          } else {
-            status = "off"
-          };
-          $('#power-saving-status').text("Power saving mode is " + status);
-        };
-
-        function displayWeather(city) {
-          var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + city;
-          var token = '&appid=a3d9eb01d4de82b9b8d0849ef604dbed';
-          var units = '&units=metric';
-          $.get(url + token + units, function (data) {
-            $('#current-temperature').text(data.main.temp);
-          });
-        };
-      });
-    </script>
   </body>
 </html>
